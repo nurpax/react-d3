@@ -25,7 +25,8 @@ module.exports = React.createClass({
     pointRadius: React.PropTypes.number,
     colors: React.PropTypes.func,
     displayDataPoints: React.PropTypes.bool,
-    hoverAnimation: React.PropTypes.bool
+    hoverAnimation: React.PropTypes.bool,
+    yDomain: React.PropTypes.array
   },
 
   getDefaultProps() {
@@ -36,7 +37,8 @@ module.exports = React.createClass({
       interpolate: false,
       interpolationType: null,
       displayDataPoints: true,
-      hoverAnimation: true
+      hoverAnimation: true,
+      yDomain: null
     };
   },
 
@@ -74,12 +76,17 @@ module.exports = React.createClass({
 
     var trans = `translate(${ props.margins.left },${ props.margins.top })`;
 
+    var yScale = scales.yScale;
+    if (props.yDomain) {
+      yScale.domain([props.yDomain[0], props.yDomain[1]]);
+    }
+
     var dataSeriesArray = data.map( (series, idx) => {
       return (
           <DataSeries
             structure={structure}
             xScale={scales.xScale}
-            yScale={scales.yScale}
+            yScale={yScale}
             seriesName={series.name}
             data={series.values}
             width={innerWidth}

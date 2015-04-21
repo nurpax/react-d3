@@ -101,6 +101,7 @@ var Demos = React.createClass({
               title="Line Chart"
               yAxisLabel="Altitude"
               xAxisLabel="Elapsed Time (sec)"
+              yDomain={[0, 40]}
             />
           </div>
           <div className="col-md-6">
